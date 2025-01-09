@@ -3235,11 +3235,11 @@ AllFuncs['To Pos Stand'] = function()
 	while Config['To Pos Stand'] and task.wait() do
 		if not Config['SelectPositionStand'] then
 			Notify("Pls Select Position")
-			Config['To Pos Stand'] = false
+			Config['To Pos Stand'] = true
 			return
 		end
 		pcall(function()
-			LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = Config['SelectPositionStand']
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3524.8, 132.5, 543.2)
 		end)
 	end
 end
@@ -3485,13 +3485,13 @@ Main = Tap.General:AddSection('General') do
         Title = "Position : N/A"
     })
     
-    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
-    Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
+    Toggle(Main, "Auto Farm Fish", "true", "Farm Fish")
+    Toggle(Main, "Teleport To Select Position", "true", "To Pos Stand")
     
     Main:AddButton({
         Title = "Select Position",
         Callback = function()
-            Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
+            Config['SelectPositionStand'] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3524.8, 132.5, 543.2)
             SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
         end
     })
