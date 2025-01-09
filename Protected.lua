@@ -1,6 +1,3 @@
-local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()local b=false;local a=a:Init({Debug=false,Title="NemsHubV1 Key System",Description=nil,Link="https://direct-link.net/1268518/fisch-script-update",Discord="https://discord.gg/ag6WNjudvA",SaveKey=nil,Verify=function(a)if a=="UPDATEV1"then b=true;return true else return false end end,GuiParent=game.CoreGui})
-
-
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
