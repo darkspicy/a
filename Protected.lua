@@ -1,3 +1,6 @@
+local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()local b=false;local a=a:Init({Debug=false,Title="NemsHubV1 Key System",Description=nil,Link="https://direct-link.net/1268518/fisch-script-update",Discord="https://discord.gg/ag6WNjudvA",SaveKey=nil,Verify=function(a)if a=="UPDATEV1"then b=true;return true else return false end end,GuiParent=game.CoreGui})
+
+
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
@@ -3235,11 +3238,11 @@ AllFuncs['To Pos Stand'] = function()
 	while Config['To Pos Stand'] and task.wait() do
 		if not Config['SelectPositionStand'] then
 			Notify("Pls Select Position")
-			Config['To Pos Stand'] = true
+			Config['To Pos Stand'] = false
 			return
 		end
 		pcall(function()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3524.8, 132.5, 543.2)
+			LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = Config['SelectPositionStand']
 		end)
 	end
 end
@@ -3485,13 +3488,13 @@ Main = Tap.General:AddSection('General') do
         Title = "Position : N/A"
     })
     
-    Toggle(Main, "Auto Farm Fish", "true", "Farm Fish")
-    Toggle(Main, "Teleport To Select Position", "true", "To Pos Stand")
+    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
+    Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
     
     Main:AddButton({
         Title = "Select Position",
         Callback = function()
-            Config['SelectPositionStand'] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3524.8, 132.5, 543.2)
+            Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
             SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
         end
     })
@@ -3590,11 +3593,11 @@ AllFuncs['Auto Find Boat Event'] = function()
 			continue
 		end
 		if Config["Farm Fish"] then
-			Config["Farm Fish"] = true
+			Config["Farm Fish"] = false
 			continue
 		end
 		if Config['To Pos Stand'] then
-			Config['To Pos Stand'] = true
+			Config['To Pos Stand'] = false
 			continue
 		end
 		for _, IngredientName in pairs(IngredientList) do
@@ -3650,8 +3653,8 @@ AllFuncs['Auto Find Boat Event'] = function()
 			end
 		end
 		if Config['Back To Fishing'] and not _hasItem("Witches Ingredient") and #IngredientList <= 0 then
-			Config["Farm Fish"] = true
-			Config['To Pos Stand'] = true
+			Config["Farm Fish"] = false
+			Config['To Pos Stand'] = false
 			task.spawn(AllFuncs['Farm Fish'])
 			task.spawn(AllFuncs['To Pos Stand'])
 		end
