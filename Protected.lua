@@ -3331,12 +3331,16 @@ AllFuncs['Farm Fish'] = function()
 		if game:GetService("Players").LocalPlayer.PlayerGui.hud.safezone.worldstatuses["3_cycle"].label.Text == "Day" then
 			local TotemName = "Sundial Totem"
 			local TotemName1 = "Aurora Totem"
-			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName))
+			if Backpack:FindFirstChild(RodName) then
+				LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName))
+			end
 			wait(0.1)
 			game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
 			game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
 			wait(5)
-			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName1))
+			if Backpack:FindFirstChild(RodName) then
+				LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName1))
+			end
 			wait(0.1)
 			game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
 			game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
