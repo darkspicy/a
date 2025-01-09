@@ -3485,7 +3485,7 @@ Main = Tap.General:AddSection('General') do
         Title = "Position : N/A"
     })
     
-    Toggle(Main, "Auto Farm Fish", "True", "Farm Fish")
+    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
     Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
     
     Main:AddButton({
@@ -3590,11 +3590,11 @@ AllFuncs['Auto Find Boat Event'] = function()
 			continue
 		end
 		if Config["Farm Fish"] then
-			Config["Farm Fish"] = false
+			Config["Farm Fish"] = true
 			continue
 		end
 		if Config['To Pos Stand'] then
-			Config['To Pos Stand'] = false
+			Config['To Pos Stand'] = true
 			continue
 		end
 		for _, IngredientName in pairs(IngredientList) do
