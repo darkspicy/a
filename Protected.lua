@@ -3176,7 +3176,7 @@ end
 
 
 AllFuncs['Farm Fish'] = function()
-	local RodName = ReplicatedStorage.playerstats[LocalPlayer.Name].Stats.rod.Value
+	local RodName = "Aurora Totem"
 	while Config['Farm Fish'] and task.wait() do
 		if Backpack:FindFirstChild(RodName) then
 			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(RodName))
