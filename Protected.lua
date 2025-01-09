@@ -3329,26 +3329,17 @@ AllFuncs['Farm Fish'] = function()
 	while Config['Farm Fish'] and task.wait() do
 		LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(-3517.8, 132.5, 560.2)
 		if game:GetService("Players").LocalPlayer.PlayerGui.hud.safezone.worldstatuses["3_cycle"].label.Text == "Day" then
-			Config['Farm Fish'] = false
 			local TotemName = "Sundial Totem"
-			if Backpack:FindFirstChild(RodName) then
-				LocalPlayer.Character.Humanoid:UnequipTool(Backpack:FindFirstChild(RodName))
-			end
-			if Backpack:FindFirstChild(TotemName) then
-				LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName))
-			end
+			local TotemName1 = "Aurora Totem"
+			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName))
 			wait(0.1)
 			game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
 			game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
 			wait(5)
-			local TotemName1 = "Aurora Totem"
-			if Backpack:FindFirstChild(TotemName1) then
-				LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName1))
-			end
+			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName1))
 			wait(0.1)
 			game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
 			game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
-			Config['Farm Fish'] = true
 		end
 		if Backpack:FindFirstChild(RodName) then
 			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(RodName))
