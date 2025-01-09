@@ -3485,7 +3485,7 @@ Main = Tap.General:AddSection('General') do
         Title = "Position : N/A"
     })
     
-    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
+    Toggle(Main, "Auto Farm Fish", "True", "Farm Fish")
     Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
     
     Main:AddButton({
