@@ -3174,7 +3174,7 @@ end
 AllFuncs['Farm Fish'] = function()
 	local RodName = ReplicatedStorage.playerstats[LocalPlayer.Name].Stats.rod.Value
 	while Config['Farm Fish'] and task.wait() do
-		LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(-3522.8, 132.5, 555.2)
+		LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(-3517.8, 132.5, 554.2)
         if game:GetService("Players").LocalPlayer.PlayerGui.hud.safezone.worldstatuses["3_cycle"].label.Text == "Day" then
             local TotemName = "Sundial Totem"
             if Backpack:FindFirstChild(RodName) then
