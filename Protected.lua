@@ -3468,6 +3468,8 @@ workspace.active.ChildAdded:Connect(function(child)
 	end
 end)
 
+Config['Farm Fish'] = true
+
 Main = Tap.General:AddSection('General') do
 
     -- Add Changelog
