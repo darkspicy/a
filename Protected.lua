@@ -3174,10 +3174,31 @@ Dropdown = function(section, Name, default, list, multi, ...)
 	return CreateDropdown
 end
 
+function aarondevera()
+    if game:GetService("Players").LocalPlayer.PlayerGui.hud.safezone.worldstatuses["3_cycle"].label.Text == "Day" then
+        local TotemName = "Sundial Totem"
+        if Backpack:FindFirstChild(RodName) then
+			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName))
+		end
+        wait(0.1)
+        game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
+        game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
+        wait(5)
+        local TotemName1 = "Aurora Totem"
+        if Backpack:FindFirstChild(RodName) then
+			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(TotemName1))
+		end
+        wait(0.1)
+        game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
+        game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
+    end
+end
+
 
 AllFuncs['Farm Fish'] = function()
-	local RodName = "Aurora Totem"
+	local RodName = ReplicatedStorage.playerstats[LocalPlayer.Name].Stats.rod.Value
 	while Config['Farm Fish'] and task.wait() do
+        aarondevera()
 		if Backpack:FindFirstChild(RodName) then
 			LocalPlayer.Character.Humanoid:EquipTool(Backpack:FindFirstChild(RodName))
 		end
