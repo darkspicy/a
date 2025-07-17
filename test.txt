@@ -1087,8 +1087,8 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = GAG:GetOwnFarmFolder().Spawn_Point.CFrame
-local TARGET_PET_NAME = "Pig"
-local LEVEL_LIMIT = 20
+local TARGET_PET_NAME = "Seagull"
+local LEVEL_LIMIT = 10
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
