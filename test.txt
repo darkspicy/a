@@ -1088,7 +1088,7 @@ end
 
 local FARM_CFRAME = GAG:GetOwnFarmFolder().Spawn_Point.CFrame
 local TARGET_PET_NAME = "Seagull"
-local LEVEL_LIMIT = 10
+local LEVEL_LIMIT = 20
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
