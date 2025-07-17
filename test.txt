@@ -1087,8 +1087,8 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Seagull"
-local LEVEL_LIMIT = 20
+local TARGET_PET_NAME = "Raccoon"
+local LEVEL_LIMIT = 50
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
@@ -1125,5 +1125,9 @@ local function EquipYoungRaccoons()
     end
 end
 
-UnequipOldRaccoons()
-EquipYoungRaccoons()
+while true do
+    task.wait(0.5)
+    UnequipOldRaccoons()
+    task.wait(0.5)
+    EquipYoungRaccoons()
+end
