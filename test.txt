@@ -1086,7 +1086,7 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
     end
 end
 
-local FARM_CFRAME = GAG:GetOwnFarmFolder().Spawn_Point.CFrame
+local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
 local TARGET_PET_NAME = "Seagull"
 local LEVEL_LIMIT = 20
 
