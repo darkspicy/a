@@ -1087,7 +1087,7 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Raccoon"
+local TARGET_PET_NAME = "Night Owl"
 local LEVEL_LIMIT = 50
 
 local function UnequipOldRaccoons()
