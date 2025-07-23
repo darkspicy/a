@@ -1258,7 +1258,6 @@ local function EquipYoungRaccoons()
         if pet.PetType == TARGET_PET_NAME  then
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:EquipPet(FARM_CFRAME)
-            equippedCount += 1
             task.wait(0)
         end
     end
