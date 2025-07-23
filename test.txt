@@ -1253,12 +1253,27 @@ local function UnequipOldRaccoons()
     end
 end
 
+local function CountEquippedRaccoons()
+    local count = 0
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME then
+            count += 1
+        end
+    end
+    return count
+end
+
 local function EquipYoungRaccoons()
+    local maxSlots = 3
+    local equippedCount = CountEquippedRaccoons()
+
     for _, pet in GAG:GetPetsInInventory() do
         if pet.PetType == TARGET_PET_NAME  then
+            if equippedCount >= maxSlots then break end
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:EquipPet(FARM_CFRAME)
-            task.wait(0)
+            equippedCount += 1
+            task.wait(0.2)
         end
     end
 end
