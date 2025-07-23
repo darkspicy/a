@@ -1268,7 +1268,7 @@ local function EquipYoungRaccoons()
     local equippedCount = CountEquippedRaccoons()
 
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
             if equippedCount >= maxSlots then break end
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:EquipPet(FARM_CFRAME)
