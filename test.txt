@@ -1237,13 +1237,54 @@ local function unequipPets()
 end
 
 -- Connect Equip Button
+
+
+local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
+local TARGET_PET_NAME = "Nihonzaru"
+local LEVEL_LIMIT = 1
+
+local function UnequipOldRaccoons()
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
+            warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            pet:UnequipPet()
+            task.wait(0.2)
+        end
+    end
+end
+
+local function CountEquippedRaccoons()
+    local count = 0
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME then
+            count += 1
+        end
+    end
+    return count
+end
+
+local function EquipYoungRaccoons()
+    local maxSlots = GAG:GetMaxEquippedPets()
+    local equippedCount = CountEquippedRaccoons()
+
+    for _, pet in GAG:GetPetsInInventory() do
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
+            if equippedCount >= maxSlots then break end
+            warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            pet:EquipPet(FARM_CFRAME)
+            equippedCount += 1
+            task.wait(0.2)
+        end
+    end
+end
+
 equipButton.MouseButton1Click:Connect(function()
-    equipPets()
+    EquipYoungRaccoons()
 end)
 
 -- Connect Unequip Button
 unequipButton.MouseButton1Click:Connect(function()
-    unequipPets()
+    UnequipOldRaccoons()
 end)
 
 -- Optional Disconnect Button (could trigger a custom disconnection event or just leave)
