@@ -1070,12 +1070,7 @@ function GAG:GetToolInHand(): Tool
     return plr.Character:FindFirstChildWhichIsA("Tool")
 end
 
--- end of api
-
--- example print weight, uuid and pickup proximity prompt of all fruits on farm
-
--- make sure youre making the most out of intellisense
-while true do
+local function aaronharvest()
     for _, fruit in ipairs(GAG:GetFruitsOnFarm()) do
         if fruit:HasGrown() and fruit:IsWithinPickupRange() then
             local prompt = fruit:GetPickupPrompt()
@@ -1084,5 +1079,13 @@ while true do
             end
         end
     end
+end
+-- end of api
+
+-- example print weight, uuid and pickup proximity prompt of all fruits on farm
+
+-- make sure youre making the most out of intellisense
+while true do
+    aaronharvest()
     task.wait() -- Repeat every 5 seconds
 end
