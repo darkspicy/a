@@ -1085,7 +1085,11 @@ end
 -- example print weight, uuid and pickup proximity prompt of all fruits on farm
 
 -- make sure youre making the most out of intellisense
-while true do
-    aaronharvest()
-    task.wait() -- Repeat every 5 seconds
+for _, plant in pairs(GAG:GetPlantsOnFarm()) do
+    for _, fruit in pairs(plant:GetFruitsData()) do
+        local fruitInstance = fruit._instance
+        if fruitInstance and fruitInstance:IsDescendantOf(workspace) then
+            GAG:ShovelPlant(fruitInstance)
+        end
+    end
 end
