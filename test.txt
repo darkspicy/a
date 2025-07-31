@@ -1070,26 +1070,64 @@ function GAG:GetToolInHand(): Tool
     return plr.Character:FindFirstChildWhichIsA("Tool")
 end
 
-local function aaronharvest()
-    for _, fruit in ipairs(GAG:GetFruitsOnFarm()) do
-        if fruit:HasGrown() and fruit:IsWithinPickupRange() then
-            local prompt = fruit:GetPickupPrompt()
-            if prompt then
-                fireproximityprompt(prompt, 0)
-            end
-        end
-    end
-end
 -- end of api
 
 -- example print weight, uuid and pickup proximity prompt of all fruits on farm
 
 -- make sure youre making the most out of intellisense
-for _, plant in pairs(GAG:GetPlantsOnFarm()) do
-    for _, fruit in pairs(plant:GetFruitsData()) do
-        local fruitInstance = fruit._instance
-        if fruitInstance and fruitInstance:IsDescendantOf(workspace) then
-            GAG:ShovelPlant(fruitInstance)
+
+for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
+    local weight = fruitData.Weight
+    local uuid = fruitData.UUID
+    local proximityPrompt = fruitData:GetPickupPrompt()
+    print(weight, uuid)
+    if fruitData:IsWithinPickupRange() then
+        fireproximityprompt(proximityPrompt)
+    end
+end
+
+local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
+local TARGET_PET_NAME = "Moon Cat"
+local LEVEL_LIMIT = 99
+
+local function UnequipOldRaccoons()
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
+            warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            pet:UnequipPet()
+            task.wait(0.2)
         end
     end
+end
+
+local function CountEquippedRaccoons()
+    local count = 0
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME then
+            count += 1
+        end
+    end
+    return count
+end
+
+local function EquipYoungRaccoons()
+    local maxSlots = GAG:GetMaxEquippedPets()
+    local equippedCount = CountEquippedRaccoons()
+
+    for _, pet in GAG:GetPetsInInventory() do
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
+            if equippedCount >= maxSlots then break end
+            warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            pet:EquipPet(FARM_CFRAME)
+            equippedCount += 1
+            task.wait(0.2)
+        end
+    end
+end
+
+while true do
+    task.wait(0.5)
+    UnequipOldRaccoons()
+    task.wait(0.5)
+    EquipYoungRaccoons()
 end
