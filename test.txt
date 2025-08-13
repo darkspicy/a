@@ -1087,20 +1087,20 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Moon Cat"
-local LEVEL_LIMIT = 99
+local TARGET_PET_NAME = "Nihonzaru"
+local HUNGER_LIMIT = 0 -- When hunger is 0, replace
 
-local function UnequipOldRaccoons()
+local function UnequipHungryNihons()
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
-            warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Hunger or 0) <= HUNGER_LIMIT then
+            warn("Unequipping hungry Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
             pet:UnequipPet()
             task.wait(0.2)
         end
     end
 end
 
-local function CountEquippedRaccoons()
+local function CountEquippedNihons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
         if pet.PetType == TARGET_PET_NAME then
@@ -1110,14 +1110,14 @@ local function CountEquippedRaccoons()
     return count
 end
 
-local function EquipYoungRaccoons()
+local function EquipFedNihons()
     local maxSlots = GAG:GetMaxEquippedPets()
-    local equippedCount = CountEquippedRaccoons()
+    local equippedCount = CountEquippedNihons()
 
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Hunger or 0) > HUNGER_LIMIT then
             if equippedCount >= maxSlots then break end
-            warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            warn("Equipping fed Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
             pet:EquipPet(FARM_CFRAME)
             equippedCount += 1
             task.wait(0.2)
@@ -1125,9 +1125,12 @@ local function EquipYoungRaccoons()
     end
 end
 
+-- Main loop
 while true do
     task.wait(0.5)
-    UnequipOldRaccoons()
+    UnequipHungryNihons()
     task.wait(0.5)
-    EquipYoungRaccoons()
+    EquipFedNihons()
 end
+
+
