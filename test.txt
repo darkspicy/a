@@ -1088,7 +1088,7 @@ end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
 local TARGET_PET_NAME = "Nihonzaru"
-local HUNGER_LIMIT = 0 -- When hunger is 0, replace
+local HUNGER_LIMIT = 0 -- Hunger <= this means pet is "empty"
 
 local function UnequipHungryNihons()
     for _, pet in GAG:GetEquippedPets() do
@@ -1114,14 +1114,26 @@ local function EquipFedNihons()
     local maxSlots = GAG:GetMaxEquippedPets()
     local equippedCount = CountEquippedNihons()
 
+    -- Gather all Nihonzaru in inventory with hunger > 0
+    local candidates = {}
     for _, pet in GAG:GetPetsInInventory() do
         if pet.PetType == TARGET_PET_NAME and (pet.PetData.Hunger or 0) > HUNGER_LIMIT then
-            if equippedCount >= maxSlots then break end
-            warn("Equipping fed Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
-            pet:EquipPet(FARM_CFRAME)
-            equippedCount += 1
-            task.wait(0.2)
+            table.insert(candidates, pet)
         end
+    end
+
+    -- Sort by hunger ascending (closest to 0 first)
+    table.sort(candidates, function(a, b)
+        return a.PetData.Hunger < b.PetData.Hunger
+    end)
+
+    -- Equip until slots are full
+    for _, pet in candidates do
+        if equippedCount >= maxSlots then break end
+        warn("Equipping Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
+        pet:EquipPet(FARM_CFRAME)
+        equippedCount += 1
+        task.wait(0.2)
     end
 end
 
