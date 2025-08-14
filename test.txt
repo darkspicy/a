@@ -1100,6 +1100,16 @@ local function UnequipHungryNihons()
     end
 end
 
+local function GetEquippedNihonUUIDs()
+    local equippedUUIDs = {}
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME then
+            equippedUUIDs[pet.UUID] = true
+        end
+    end
+    return equippedUUIDs
+end
+
 local function CountEquippedNihons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
@@ -1113,11 +1123,14 @@ end
 local function EquipFedNihons()
     local maxSlots = GAG:GetMaxEquippedPets()
     local equippedCount = CountEquippedNihons()
+    local equippedUUIDs = GetEquippedNihonUUIDs()
 
-    -- Gather all Nihonzaru in inventory with hunger > 0
+    -- Gather all Nihonzaru in inventory with hunger > 0 and not already equipped
     local candidates = {}
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Hunger or 0) > HUNGER_LIMIT then
+        if pet.PetType == TARGET_PET_NAME 
+           and (pet.PetData.Hunger or 0) > HUNGER_LIMIT 
+           and not equippedUUIDs[pet.UUID] then
             table.insert(candidates, pet)
         end
     end
@@ -1144,5 +1157,4 @@ while true do
     task.wait(0.5)
     EquipFedNihons()
 end
-
 
