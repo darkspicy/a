@@ -1088,29 +1088,19 @@ end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
 local TARGET_PET_NAME = "Nihonzaru"
-local HUNGER_LIMIT = 0 -- Hunger <= this means pet is "empty"
+local LEVEL_LIMIT = 100
 
-local function UnequipHungryNihons()
+local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Hunger or 0) <= HUNGER_LIMIT then
-            warn("Unequipping hungry Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
+            warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:UnequipPet()
             task.wait(0.2)
         end
     end
 end
 
-local function GetEquippedNihonUUIDs()
-    local equippedUUIDs = {}
-    for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == TARGET_PET_NAME then
-            equippedUUIDs[pet.UUID] = true
-        end
-    end
-    return equippedUUIDs
-end
-
-local function CountEquippedNihons()
+local function CountEquippedRaccoons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
         if pet.PetType == TARGET_PET_NAME then
@@ -1120,41 +1110,24 @@ local function CountEquippedNihons()
     return count
 end
 
-local function EquipFedNihons()
+local function EquipYoungRaccoons()
     local maxSlots = GAG:GetMaxEquippedPets()
-    local equippedCount = CountEquippedNihons()
-    local equippedUUIDs = GetEquippedNihonUUIDs()
+    local equippedCount = CountEquippedRaccoons()
 
-    -- Gather all Nihonzaru in inventory with hunger > 0 and not already equipped
-    local candidates = {}
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == TARGET_PET_NAME 
-           and (pet.PetData.Hunger or 0) > HUNGER_LIMIT 
-           and not equippedUUIDs[pet.UUID] then
-            table.insert(candidates, pet)
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
+            if equippedCount >= maxSlots then break end
+            warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+            pet:EquipPet(FARM_CFRAME)
+            equippedCount += 1
+            task.wait(0.2)
         end
     end
-
-    -- Sort by hunger ascending (closest to 0 first)
-    table.sort(candidates, function(a, b)
-        return a.PetData.Hunger < b.PetData.Hunger
-    end)
-
-    -- Equip until slots are full
-    for _, pet in candidates do
-        if equippedCount >= maxSlots then break end
-        warn("Equipping Nihonzaru:", pet.UUID, "Hunger:", pet.PetData.Hunger)
-        pet:EquipPet(FARM_CFRAME)
-        equippedCount += 1
-        task.wait(0.2)
-    end
 end
 
--- Main loop
 while true do
     task.wait(0.5)
-    UnequipHungryNihons()
+    UnequipOldRaccoons()
     task.wait(0.5)
-    EquipFedNihons()
+    EquipYoungRaccoons()
 end
-
