@@ -1087,7 +1087,7 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Nihonzaru"
+local TARGET_PET_NAME = "Octopus Mimic"
 local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
@@ -1113,11 +1113,47 @@ end
 local function EquipYoungRaccoons()
     local maxSlots = GAG:GetMaxEquippedPets()
     local equippedCount = CountEquippedRaccoons()
+    local smalltoy = 0
+    local medtoy = 0
+
+    for i, v in GAG:GetEquippedPets() do
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < 40 then
+            if pet.Data.BaseWeight > 4.76 then
+                if smalltoy < 7 then 
+                    for o, p in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+                        if string.find(p, "Small Pet Toy") then
+                            p.Parent = workspace.LocalPlayer
+                            local args = {
+                                "ApplyBoost",
+                                "{85e67167-1b5a-4f8f-a7d5-2b50bf6fabad}"
+                            }
+                            game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetBoostService"):FireServer(unpack(args))
+                            smalltoy += 1
+                            wait(5)
+                            if smalltoy >= 2 and medtoy < 5 then 
+                                if string.find(p, "Medium Pet Toy") then
+                                    p.Parent = workspace.LocalPlayer
+                                    local args = {
+                                        "ApplyBoost",
+                                        "{85e67167-1b5a-4f8f-a7d5-2b50bf6fabad}"
+                                    }
+                                    game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetBoostService"):FireServer(unpack(args))
+                                    medtoy += 1
+                                 end
+                            end
+                            wait(300)
+                        end
+                    end
+                end
+            end
+        end
+    end
 
     for _, pet in GAG:GetPetsInInventory() do
         if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) < LEVEL_LIMIT then
             if equippedCount >= maxSlots then break end
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+    
             pet:EquipPet(FARM_CFRAME)
             equippedCount += 1
             task.wait(0.2)
