@@ -1082,7 +1082,7 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Mimic Octopus"
+local TARGET_PET_NAME = "Dilophosaurus"
 local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
@@ -1175,3 +1175,4 @@ while true do
     task.wait(0.5)
     EquipYoungRaccoons()
 end
+
