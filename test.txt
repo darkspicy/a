@@ -1087,7 +1087,7 @@ local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == TARGET_PET_NAME and pet.PetData.BaseWeight >= 5.5 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight >= 5.5 then
             warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:UnequipPet()
             task.wait(0.2)
@@ -1113,7 +1113,7 @@ local function EquipYoungRaccoons()
 
     for i, pet in GAG:GetEquippedPets() do
         print("try")
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= 40 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and (pet.PetData.Level or 0) >= 40 then
             print(pet.PetData.BaseWeight)
             if pet.PetData.BaseWeight >= 4.76 and pet.PetData.BaseWeight <= 5.5 then 
                 print("toy")
@@ -1155,7 +1155,7 @@ local function EquipYoungRaccoons()
     end
 
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == TARGET_PET_NAME and pet.PetData.BaseWeight < 5.5 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 then
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             local args = {
                 "EquipPet",
