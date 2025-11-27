@@ -1098,7 +1098,9 @@ end
 local function CountEquippedRaccoons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
-        count += 1
+        if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" then
+            count += 1
+        end
     end
     return count
 end
@@ -1155,7 +1157,7 @@ local function EquipYoungRaccoons()
     end
 
     for _, pet in GAG:GetPetsInInventory() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 and equippedCount < 4 then
             warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             local args = {
                 "EquipPet",
