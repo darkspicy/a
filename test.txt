@@ -1096,13 +1096,13 @@ local function UnequipOldRaccoons()
 end
 
 local function CountEquippedRaccoons()
+    local totalmic = 0
     for i, pet in GAG:GetEquippedPets() do
-        local totalmic = 0
         if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" then
             totalmic += 1
         end
-        return totalmic
     end
+    return totalmic
 end
 
 local function EquipYoungRaccoons()
