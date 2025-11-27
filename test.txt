@@ -1169,6 +1169,9 @@ local function EquipYoungRaccoons()
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
                 task.wait(0.2)
+                if equippedCount >= 4 then
+                    break
+                end
             end
         end
     end
