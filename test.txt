@@ -1110,6 +1110,7 @@ local function EquipYoungRaccoons()
     local equippedCount = CountEquippedRaccoons()
     local smalltoy = 0
     local medtoy = 0
+    print(equippedCount)
 
     print("start")
 
