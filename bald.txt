@@ -1188,5 +1188,3 @@ while true do
     task.wait(0.5)
     EquipYoungRaccoons()
 end
-
-
