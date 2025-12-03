@@ -1082,12 +1082,12 @@ for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
 end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
-local TARGET_PET_NAME = "Mimic Octopus"
+local TARGET_PET_NAME = "Ruby Squid"
 local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight >= 3.5 then
+        if (pet.PetType == "Ruby Squid" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight >= 3.5 then
             warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:UnequipPet()
             task.wait(0.2)
@@ -1098,7 +1098,7 @@ end
 local function CountEquippedRaccoons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" then
+        if pet.PetType == "Ruby Squid" or pet.PetType == "Dilophosaurus" then
             count += 1
         end
     end
@@ -1123,7 +1123,7 @@ local function EquipYoungRaccoons()
     print("start")
 
     for _, pet in GAG:GetPetsInInventory() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 3.5 and equippedCount < 1 then
+        if (pet.PetType == "Ruby Squid" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 3.5 and equippedCount < 1 then
             if not IsEquipped(pet.UUID) then
                 warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
                 local args = {
