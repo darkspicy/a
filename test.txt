@@ -1126,7 +1126,7 @@ local function EquipYoungRaccoons()
         print("try")
         if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and (pet.PetData.Level or 0) >= 40 then
             print(pet.PetData.BaseWeight)
-            if pet.PetData.BaseWeight >= 4.76 and pet.PetData.BaseWeight <= 5.5 then 
+            if pet.PetData.BaseWeight >= 5.04 and pet.PetData.BaseWeight <= 5.5 and pet.PetData.BaseWeight < 5.34 then
                 print("toy")
                 for o, p in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
                     local name = string.lower(p.Name)
@@ -1144,7 +1144,7 @@ local function EquipYoungRaccoons()
                     end
                 end
             end
-            if pet.PetData.BaseWeight >= 5.06 and pet.PetData.BaseWeight <= 5.5 then
+            if pet.PetData.BaseWeight >= 5.34 and pet.PetData.BaseWeight <= 5.5 then
                 print("med")
                 for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
                     local name = string.lower(l.Name)
@@ -1188,6 +1188,7 @@ while true do
     task.wait(0.5)
     EquipYoungRaccoons()
 end
+
 
 
 
