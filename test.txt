@@ -1134,7 +1134,7 @@ local function EquipYoungRaccoons()
                         p.Parent = character
                         local args = {
                             "ApplyBoost",
-                            "{85e67167-1b5a-4f8f-a7d5-2b50bf6fabad}"
+                            "{f43bb4d6-1e3e-4df0-ae1b-0615eda67b99}"
                         }
                         game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetBoostService"):FireServer(unpack(args))
                         smalltoy += 1
@@ -1153,7 +1153,7 @@ local function EquipYoungRaccoons()
                         l.Parent = character
                         local args = {
                             "ApplyBoost",
-                            "{85e67167-1b5a-4f8f-a7d5-2b50bf6fabad}"
+                            "{f43bb4d6-1e3e-4df0-ae1b-0615eda67b99}"
                         }
                         game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetBoostService"):FireServer(unpack(args))
                         wait(2)
