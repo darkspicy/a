@@ -1166,18 +1166,20 @@ local function EquipYoungRaccoons()
     end
 
     for _, pet in GAG:GetPetsInInventory() do
-        task.wait(4)
         if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 and equippedCount < 4 then
             if not IsEquipped(pet.UUID) then
-                warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
-                local args = {
-                    "EquipPet",
-                    pet.UUID,
-                    CFrame.new(41.285675048828125, 0.1355276107788086, -78.19476318359375, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
-                equippedCount += 1
-                task.wait(0.2)
+                task.wait(1)
+                if equippedCount < 4 then
+                    warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
+                    local args = {
+                        "EquipPet",
+                        pet.UUID,
+                        CFrame.new(41.285675048828125, 0.1355276107788086, -78.19476318359375, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
+                    equippedCount += 1
+                    task.wait(0.2)
+                end
             end
         end
     end
