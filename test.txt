@@ -1166,7 +1166,7 @@ local function EquipYoungRaccoons()
     end
 
     for _, pet in GAG:GetPetsInInventory() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 and equippedCount < 3 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 and equippedCount < 4 then
             task.wait(4)
             if not IsEquipped(pet.UUID) and equippedCount < 4 then
                 warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
