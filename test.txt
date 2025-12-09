@@ -1185,11 +1185,9 @@ end
 while true do
     task.wait(0.5)
     UnequipOldRaccoons()
-    task.wait(5)
+    task.wait(0.5)
     EquipYoungRaccoons()
 end
-
-
 
 
 
