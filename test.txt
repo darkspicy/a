@@ -1114,6 +1114,14 @@ local function IsEquipped(uuid)
     return false
 end
 
+local function UnequipCurrentTool(character)
+    for _, item in ipairs(character:GetChildren()) do
+        if item:IsA("Tool") then
+            item.Parent = player.Backpack
+        end
+    end
+end
+
 local function EquipYoungRaccoons()
     local maxSlots = GAG:GetMaxEquippedPets()
     local equippedCount = CountEquippedRaccoons()
@@ -1131,6 +1139,7 @@ local function EquipYoungRaccoons()
                 for o, p in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
                     local name = string.lower(p.Name)
                     if string.find(name, "small pet toy") then
+                        UnequipCurrentTool(character)
                         p.Parent = character
                         local args = {
                             "ApplyBoost",
@@ -1150,6 +1159,7 @@ local function EquipYoungRaccoons()
                     local name = string.lower(l.Name)
                     if name:find("medium pet toy") then
                         print("usermed")
+                        UnequipCurrentTool(character)
                         l.Parent = character
                         local args = {
                             "ApplyBoost",
@@ -1188,6 +1198,7 @@ while true do
     task.wait(0.5)
     EquipYoungRaccoons()
 end
+
 
 
 
