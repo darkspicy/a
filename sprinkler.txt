@@ -1,0 +1,43 @@
+wait(5)
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+
+local function UnequipCurrentTool(character)
+    for _, item in ipairs(character:GetChildren()) do
+        if item:IsA("Tool") then
+            item.Parent = player.Backpack
+        end
+    end
+end
+
+local function springklercheck()
+    local time = game:GetService("Players").LocalPlayer:GetAttribute("SessionTime")
+    print(time)
+    if time <= 180 then
+        for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+            local name = string.lower(l.Name)
+            if name:find("flower froster sprinkler") then
+                print(l.Parent)
+                UnequipCurrentTool(character)
+                wait(1)
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                humanoid:EquipTool(l)
+                print(l.Parent)
+                local args = {
+                    "Create",
+                    CFrame.new(-2.0199334621429443, 1.2799780368804932, -118.9836196899414, 0.7823398113250732, -0.30718618631362915, 0.5418313145637512, -2.980232594040899e-08, 0.869920015335083, 0.49319297075271606, -0.6228519678115845, -0.38584452867507935, 0.6805729269981384)
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("SprinklerService"):FireServer(unpack(args))
+                task.wait(10)
+                l.Parent = player.Backpack
+                task.wait(1000)
+            end
+        end
+    end
+end
+
+while true do
+    task.wait(0.5)
+    springklercheck()
+end
