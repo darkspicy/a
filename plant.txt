@@ -1,0 +1,51 @@
+
+wait(120)
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+local time = game:GetService("Players").LocalPlayer:GetAttribute("SessionTime")
+
+print(time)
+
+local function UnequipCurrentTool(character)
+    for _, item in ipairs(character:GetChildren()) do
+        if item:IsA("Tool") then
+            item.Parent = player.Backpack
+        end
+    end
+end
+
+local function springklercheck()
+    for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+        local name = string.lower(l.Name)
+        if name:find("orange tulip seed") then
+            UnequipCurrentTool(character)
+            l.Parent = character
+            local args = {
+                vector.create(-31.857942581176758, 0.1355266571044922, -83.58409881591797),
+                "Orange Tulip"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("Plant_RE"):FireServer(unpack(args))
+            task.wait(2)
+            l.Parent = player.Backpack
+            task.wait(1)
+        end
+        if name:find("daffodil seed") then
+            UnequipCurrentTool(character)
+            l.Parent = character
+            local args = {
+                vector.create(-31.857942581176758, 0.1355266571044922, -83.58409881591797),
+                "Daffodil"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("Plant_RE"):FireServer(unpack(args))
+            task.wait(2)
+            l.Parent = player.Backpack
+            task.wait(1)
+        end
+    end
+end
+
+while true do
+    springklercheck()
+    task.wait(600)
+end
