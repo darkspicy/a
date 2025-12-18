@@ -1188,4 +1188,9 @@ end
 
 
 EquipYoungRaccoons()
-
+wait(10)
+EquipYoungRaccoons()
+wait(10)
+EquipYoungRaccoons()
+wait(10)
+EquipYoungRaccoons()
