@@ -200,18 +200,6 @@ function PlantData:IsHarvestableWithoutFruit(): boolean
     return self._instance:FindFirstChild("Fruits")==nil
 end
 
-function PlantData:GetFruitsData(): {FruitData}
-    local fruitsData:{FruitData} = {}
-    if self._instance:FindFirstChild("Fruits") then -- REGULAR FRUITS GROWING
-        for _, fruitInstance in self._instance.Fruits:GetChildren() do
-            table.insert(fruitsData, FruitData.new(fruitInstance))
-        end
-    elseif self:IsHarvestableWithoutFruit() then -- PLANTS HARVESTABLE BY THEMSELVES
-        return {FruitData.new(table.copy(self))}
-    end
-    return fruitsData
-end
-
 function PlantData.new(plantInstance:Instance): PlantData
     local self:PlantData = setmetatable({}, PlantData)
 
@@ -815,16 +803,6 @@ function GAG:GetPlantsOnFarm(): {PlantData}
     return plantsData
 end
 
-function GAG:GetFruitsOnFarm(): {FruitData}
-    local fruits:{FruitData} = {}
-    for _,plantData in GAG:GetPlantsOnFarm() do
-        for _,fruitData in plantData:GetFruitsData() do
-            table.insert(fruits,fruitData)
-        end
-    end
-    return fruits
-end
-
 function GAG:GetMaxEquippedPets(): number
     return dataService:GetData().PetsData.MutableStats.MaxEquippedPets
 end
@@ -1070,16 +1048,6 @@ end
 -- example print weight, uuid and pickup proximity prompt of all fruits on farm
 
 -- make sure youre making the most out of intellisense
-
-for _,fruitData:FruitData in GAG:GetFruitsOnFarm() do
-    local weight = fruitData.Weight
-    local uuid = fruitData.UUID
-    local proximityPrompt = fruitData:GetPickupPrompt()
-    print(weight, uuid)
-    if fruitData:IsWithinPickupRange() then
-        fireproximityprompt(proximityPrompt)
-    end
-end
 
 local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
 local TARGET_PET_NAME = "Ruby Squid"
