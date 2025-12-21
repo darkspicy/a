@@ -1089,6 +1089,7 @@ local LEVEL_LIMIT = 100
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
         if pet.PetType == "Mimic Octopus" then
+            print(pet.PetType)
             print(pet.PetData.Mutation)
         end
     end
