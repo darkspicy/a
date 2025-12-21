@@ -1088,7 +1088,8 @@ local LEVEL_LIMIT = 100
 
 local function EquipYoungRaccoons()
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == "Mimic Octopus" and pet.PetData.MutationType ~= "A" then
+        if pet.PetType == "Mimic Octopus" and pet.PetData.MutationType ~= "A" and pet.PetData.BaseWeight >= 5.5 and pet.PetData.MutationType ~= "P" then
+            warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             local args = {
                 "EquipPet",
                 pet.UUID,
@@ -1096,16 +1097,26 @@ local function EquipYoungRaccoons()
             }
             game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
             task.wait(0.2)
+            break
         end
     end
 end
 
+local function UnequipCurrentTool(character)
+    for _, item in ipairs(character:GetChildren()) do
+        if item:IsA("Tool") then
+            item.Parent = player.Backpack
+        end
+    end
+end
+local player = game:GetService("Players").LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
         if pet.PetType == "Mimic Octopus" then
-            print(pet.PetType)
-            print(pet.PetData.MutationType)
-            if pet.PetData.Level >= 20 and pet.PetData.MutationType ~= "P" then 
+            if pet.PetData.Level >= 20 and pet.PetData.MutationType ~= "P" and pet.PetData.MutationType ~= "A" then 
+                print("Start")
                 local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
                 Event:FireServer(
                     "UnequipPet",
@@ -1125,52 +1136,74 @@ local function UnequipOldRaccoons()
                     CFrame.new(-2.8722467422485, 1.7432732582092, -86.926536560059, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                 )
                 task.wait(20)
+                print("Checking")
                 if pet.PetData.MutationType ~= "A" then
                     for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
                         local name = string.lower(l.Name)
-                        if name:find("cleaning pet shard") then
+                        if name:find("cleansing pet shard") then
+                            print("Cleaning")
                             print(l.Parent)
                             UnequipCurrentTool(character)
                             wait(1)
                             local humanoid = character:FindFirstChildOfClass("Humanoid")
                             humanoid:EquipTool(l)
                             print(l.Parent)
-                            local Event = game:GetService("ReplicatedStorage").GameEvents.PetShardService_RE
-                            Event:FireServer(
-                                "ApplyShard",
-                                {pet.UUID}
-                            )
-                            task.wait(1)
+                            task.wait(0.5)
+                            for i, v in pairs(workspace.PetsPhysical:GetChildren()) do
+                                for n, m in pairs(v:GetChildren()) do
+                                    if m.Name == pet.UUID then
+                                        local args = {
+                                        "ApplyShard",
+                                        m
+                                    }
+                                    game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetShardService_RE"):FireServer(unpack(args))
+                                    print("Target Found")
+                                    end
+                                end
+                            end
+                            task.wait(2)
+                            l.Parent = player.Backpack
+                            print("Uneq")
                             local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
                             Event:FireServer(
                                 "UnequipPet",
                                 pet.UUID
                             )
                             task.wait(0.5)
+                            print("Swap 2")
                             local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
                             Event:FireServer(
                                 "SwapPetLoadout",
                                 2
                             )
+                            task.wait(0.5)
+                            print("Equip")
                             local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
                             Event:FireServer(
                                 "EquipPet",
                                 pet.UUID,
                                 CFrame.new(-2.8722467422485, 1.7432732582092, -86.926536560059, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                             )
+                            task.wait(5)
                         end
                     end
                 end
-                if pet.PetData.MutationType == "A" then
-                    local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
-                    Event:FireServer(
-                        "UnequipPet",
-                        pet.UUID
-                    )
-                    task.wait(0.5)
-                    EquipYoungRaccoons()
-                end
-
+            end
+            if pet.PetData.MutationType == "A" then
+                local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                Event:FireServer(
+                    "UnequipPet",
+                    pet.UUID
+                )
+                task.wait(0.5)
+                local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                Event:FireServer(
+                    "SwapPetLoadout",
+                    2
+                )
+                task.wait(1)
+                EquipYoungRaccoons()
+                task.wait(5)
             end
         end
     end
