@@ -615,7 +615,8 @@ type PetData = {
     Hunger: number,
     Name: string,
     HatchedFrom: string,
-    LevelProgress: number
+    LevelProgress: number,
+    MutationType: string?
 }
 
 type PetInventoryItem = {
@@ -1092,7 +1093,7 @@ local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT then
+        if pet.PetType == TARGET_PET_NAME and (pet.PetData.Level or 0) >= LEVEL_LIMIT and pet.PetData.MutationType ~= "P" then
             warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:UnequipPet()
             task.wait(0.2)
