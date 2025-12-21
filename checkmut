@@ -1138,7 +1138,7 @@ local function UnequipOldRaccoons()
                             local Event = game:GetService("ReplicatedStorage").GameEvents.PetShardService_RE
                             Event:FireServer(
                                 "ApplyShard",
-                                [pet.UUID]
+                                {pet.UUID}
                             )
                             task.wait(1)
                             local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
