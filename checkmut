@@ -1086,16 +1086,97 @@ local FARM_CFRAME = CFrame.new(45.27180862426758, 0, -110.44402313232422)
 local TARGET_PET_NAME = "Ruby Squid"
 local LEVEL_LIMIT = 100
 
-local function UnequipOldRaccoons()
+local function EquipYoungRaccoons()
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == "Mimic Octopus" then
-            print(pet.PetType)
-            print(pet.PetData.MutationType)
+        if pet.PetType == "Mimic Octopus" and pet.PetData.MutationType ~= "A" then
+            local args = {
+                "EquipPet",
+                "{5c32ba77-76fd-4f77-a954-c8f601693028}",
+                 CFrame.new(41.285675048828125, 0.1355276107788086, -78.19476318359375, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
+            task.wait(0.2)
         end
     end
 end
 
+local function UnequipOldRaccoons()
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == "Mimic Octopus" then
+            print(pet.PetType)
+            print(pet.PetData.MutationType)
+            if pet.PetData.Level >= 20 and pet.PetData.MutationType ~= "P" then 
+                local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                Event:FireServer(
+                    "UnequipPet",
+                    pet.UUID
+                )
+                task.wait(2)
+                local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                Event:FireServer(
+                    "SwapPetLoadout",
+                    1
+                )
+                task.wait(2)
+                local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                Event:FireServer(
+                    "EquipPet",
+                    pet.UUID,
+                    CFrame.new(-2.8722467422485, 1.7432732582092, -86.926536560059, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                )
+                task.wait(20)
+                if pet.PetData.MuitationType ~= "A" then
+                    for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+                        local name = string.lower(l.Name)
+                        if name:find("cleaning pet shard") then
+                            print(l.Parent)
+                            UnequipCurrentTool(character)
+                            wait(1)
+                            local humanoid = character:FindFirstChildOfClass("Humanoid")
+                            humanoid:EquipTool(l)
+                            print(l.Parent)
+                            local Event = game:GetService("ReplicatedStorage").GameEvents.PetShardService_RE
+                            Event:FireServer(
+                                "ApplyShard",
+                                [pet.UUID]
+                            )
+                            task.wait(1)
+                            local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                            Event:FireServer(
+                                "UnequipPet",
+                                pet.UUID
+                            )
+                            task.wait(0.5)
+                            local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                            Event:FireServer(
+                                "SwapPetLoadout",
+                                2
+                            )
+                            local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                            Event:FireServer(
+                                "EquipPet",
+                                pet.UUID,
+                                CFrame.new(-2.8722467422485, 1.7432732582092, -86.926536560059, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                            )
+                        end
+                    end
+                end
+                if pet.PetData.MuitationType == "A" then
+                    local Event = game:GetService("ReplicatedStorage").GameEvents.PetsService
+                    Event:FireServer(
+                        "UnequipPet",
+                        pet.UUID
+                    )
+                    task.wait(0.5)
+                    EquipYoungRaccoons()
+                end
 
-UnequipOldRaccoons()
+            end
+        end
+    end
+end
 
-
+while true do
+    task.wait(0.5)
+    UnequipOldRaccoons()
+end
