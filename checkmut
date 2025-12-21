@@ -1087,7 +1087,7 @@ local TARGET_PET_NAME = "Ruby Squid"
 local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
-    for _, pet in GAG:GetEquippedPets() do
+    for _, pet in GAG:GetPetsInInventory() do
         if pet.PetType == "Mimic Octopus" then
             print(pet.PetType)
             print(pet.PetData.MutationType)
