@@ -1095,9 +1095,22 @@ local function IsEquipped(uuid)
     return false
 end
 
+local function CountEquippedRaccoons()
+    local count = 0
+    for _, pet in GAG:GetEquippedPets() do
+        if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" then
+            count += 1
+        end
+    end
+    return count
+end
+
 local function EquipYoungRaccoons()
+
+    local equippedCount = CountEquippedRaccoons()
+
     for _, pet in GAG:GetPetsInInventory() do
-        if pet.PetType == "Mimic Octopus" and pet.PetData.Level < 100 then
+        if pet.PetType == "Mimic Octopus" and pet.PetData.Level < 100 and equippedCount < 6 then
             if not IsEquipped(pet.UUID) then
                 warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
                 local args = {
@@ -1106,6 +1119,7 @@ local function EquipYoungRaccoons()
                     CFrame.new(41.285675048828125, 0.1355276107788086, -78.19476318359375, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("PetsService"):FireServer(unpack(args))
+                equippedCount += 1
                 task.wait(0.2)
             end
         end
