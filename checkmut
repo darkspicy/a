@@ -1135,7 +1135,7 @@ local function UnequipOldRaccoons()
                     pet.UUID,
                     CFrame.new(-2.8722467422485, 1.7432732582092, -86.926536560059, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                 )
-                task.wait(20)
+                task.wait(23)
                 print("Checking")
                 if pet.PetData.MutationType ~= "A" then
                     for o, l in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
