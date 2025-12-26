@@ -1087,7 +1087,7 @@ local LEVEL_LIMIT = 100
 
 local function UnequipOldRaccoons()
     for _, pet in GAG:GetEquippedPets() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight >= 5.5 and pet.PetData.Level ~= 100 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" or pet.PetType == "French Fry Ferret") and pet.PetData.BaseWeight >= 5.5 and pet.PetData.Level ~= 100 then
             warn("Unequipping old Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
             pet:UnequipPet()
             task.wait(0.2)
@@ -1098,7 +1098,7 @@ end
 local function CountEquippedRaccoons()
     local count = 0
     for _, pet in GAG:GetEquippedPets() do
-        if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" then
+        if pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" or pet.PetType == "French Fry Ferret" then
             count += 1
         end
     end
@@ -1132,7 +1132,7 @@ local function EquipYoungRaccoons()
 
     for i, pet in GAG:GetEquippedPets() do
         print("try")
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and (pet.PetData.Level or 0) >= 40 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" or pet.PetType == "French Fry Ferret") and (pet.PetData.Level or 0) >= 40 then
             print(pet.PetData.BaseWeight)
             if pet.PetData.BaseWeight >= 5.04 and pet.PetData.BaseWeight <= 5.5 and pet.PetData.BaseWeight < 5.34 then
                 print("toy")
@@ -1176,7 +1176,7 @@ local function EquipYoungRaccoons()
     end
 
     for _, pet in GAG:GetPetsInInventory() do
-        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus") and pet.PetData.BaseWeight < 5.5 and equippedCount < 3 then
+        if (pet.PetType == "Mimic Octopus" or pet.PetType == "Dilophosaurus" or pet.PetType == "French Fry Ferret") and pet.PetData.BaseWeight < 5.5 and equippedCount < 3 then
             if not IsEquipped(pet.UUID) then
                 warn("Equipping young Raccoon:", pet.UUID, "Level:", pet.PetData.Level)
                 local args = {
@@ -1198,6 +1198,7 @@ while true do
     task.wait(0.5)
     EquipYoungRaccoons()
 end
+
 
 
 
